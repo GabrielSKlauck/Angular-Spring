@@ -18,7 +18,6 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long codigo;
 
-
     private String nome;
 
     private int idade;

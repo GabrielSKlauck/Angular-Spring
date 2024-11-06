@@ -3,6 +3,7 @@ package br.com.projeto.api.controle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,5 +24,10 @@ public class Controle {
     @GetMapping("/")
     public Iterable<Cliente> selecionar(){
         return acao.findAll();
+    }
+
+    @PutMapping("/")
+    public Cliente editar(@RequestBody Cliente c){
+        return acao.save(c);
     }
 }
