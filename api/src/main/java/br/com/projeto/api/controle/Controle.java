@@ -15,13 +15,13 @@ public class Controle {
     @Autowired
     private Repositorio acao;
 
-    @PostMapping
+    @PostMapping("/")
     public Cliente cadastrar(@RequestBody Cliente c){
         return acao.save(c);
     }
 
     @GetMapping("/")
-    public String teste(){
-        return "Hello world";
+    public Iterable<Cliente> selecionar(){
+        return acao.findAll();
     }
 }
