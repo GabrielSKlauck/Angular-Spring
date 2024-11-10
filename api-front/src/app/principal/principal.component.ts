@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ClienteService } from '../servico/cliente.service';
 import { Cliente } from '../modelo/Cliente';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-principal',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './principal.component.html',
   styleUrl: './principal.component.css'
 })
@@ -30,6 +31,6 @@ export class PrincipalComponent {
 
   selecionarItem(index: number){
     this.btnCadastrado = true
-    console.log(this.clientes[index])
+    this.cliente = this.clientes[index]
   }
 }
