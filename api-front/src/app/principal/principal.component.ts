@@ -13,17 +13,23 @@ import { Cliente } from '../modelo/Cliente';
 export class PrincipalComponent {
   btnCadastrado: boolean = false;
 
-  cliente:Cliente[] = [];
+  clientes:Cliente[] = [];
+
+  cliente = new Cliente;
 
   constructor(private servico:ClienteService){}
 
   selecionar(): void{
-
+    this.servico.selecionar()
+    .subscribe(retorno => this.clientes = retorno)
   }
 
   ngOnInit(): void {
-    console.log(this.servico.selecionar()
-    .subscribe(retorno => this.cliente = retorno))
-    
+    this.selecionar();
+  }
+
+  selecionarItem(index: number){
+    this.btnCadastrado = true
+    console.log(this.clientes[index])
   }
 }

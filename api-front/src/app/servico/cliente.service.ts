@@ -16,7 +16,4 @@ export class ClienteService {
     return this.http.get<Cliente[]>(this.url);
   }
 
-  ngOnInit(): void {
-    console.log(this.selecionar())
-  }
 }
