@@ -16,7 +16,6 @@ export class PrincipalComponent {
   btnCadastrado: boolean = false;
 
   clientes:Cliente[] = [];
-  posicaoCliente: number = 0;
   constructor(private servico:ClienteService, private comum:ComumService){}
 
   cep: string = "";
@@ -48,13 +47,25 @@ export class PrincipalComponent {
   }
 
   selecionarItem(index: number){
-    this.btnCadastrado = true
-    this.cliente = this.clientes[index]
-    this.posicaoCliente = index;
+    this.btnCadastrado = true; 
+    this.cliente = this.clientes[index];
   }
 
-  alterar(){
-    
+  alterar():void{
+    this.servico.alterar(this.cliente)
+    .subscribe(retorno => {
+
+      let posicao = this.clientes.findIndex(obj => {
+        return obj.codigo == retorno.codigo
+      });
+
+      this.clientes[posicao] = retorno
+
+      this.btnCadastrado = false;
+
+      this.cliente = new Cliente
+
+    })
   }
 
   excluir(){
