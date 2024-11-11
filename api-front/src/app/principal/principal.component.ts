@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { ClienteService } from '../servico/cliente.service';
 import { Cliente } from '../modelo/Cliente';
 import { FormsModule } from '@angular/forms';
+import { ComumService } from '../servico/comum.service';
 
 @Component({
   selector: 'app-principal',
@@ -15,10 +16,22 @@ export class PrincipalComponent {
   btnCadastrado: boolean = false;
 
   clientes:Cliente[] = [];
+  posicaoCliente: number = 0;
+  constructor(private servico:ClienteService, private comum:ComumService){}
+
+  cep: string = "";
+  cepRecebido: JSON[] = [];
+  testecep(): void{
+    this.comum.getCep(this.cep)
+    .subscribe(retorno => this.cepRecebido.push(retorno))
+  }
 
   cliente = new Cliente;
 
-  constructor(private servico:ClienteService){}
+
+  ngOnInit(): void {
+    this.selecionar();
+  }
 
   selecionar(): void{
     this.servico.selecionar()
@@ -27,15 +40,29 @@ export class PrincipalComponent {
 
   cadastrar(): void{
     this.servico.cadastrar(this.cliente)
-    .subscribe(retorno => {this.clientes.push(retorno)})
-  }
-
-  ngOnInit(): void {
-    this.selecionar();
+    .subscribe(retorno => {
+      this.clientes.push(retorno);
+      
+      this.cliente = new Cliente();
+    })
   }
 
   selecionarItem(index: number){
     this.btnCadastrado = true
     this.cliente = this.clientes[index]
+    this.posicaoCliente = index;
+  }
+
+  alterar(){
+    
+  }
+
+  excluir(){
+
+  }
+
+  cancelar(){
+    this.cliente = new Cliente()
+    this.btnCadastrado = false;
   }
 }
