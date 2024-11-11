@@ -35,6 +35,8 @@ export class PrincipalComponent {
   selecionar(): void{
     this.servico.selecionar()
     .subscribe(retorno => this.clientes = retorno)
+
+    
   }
 
   cadastrar(): void{
@@ -43,7 +45,10 @@ export class PrincipalComponent {
       this.clientes.push(retorno);
       
       this.cliente = new Cliente();
+      
     })
+
+    
   }
 
   selecionarItem(index: number){
@@ -69,7 +74,19 @@ export class PrincipalComponent {
   }
 
   excluir(){
+    this.servico.excluir(this.cliente.codigo)
+    .subscribe(retorno => {
 
+      let posicao = this.clientes.findIndex(obj => {
+        return obj.codigo == this.cliente.codigo
+      });
+
+      this.clientes.splice(posicao, 1);
+
+      this.btnCadastrado = false;
+
+      this.cliente = new Cliente
+    })
   }
 
   cancelar(){
